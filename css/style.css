@@ -1,3 +1,22 @@
 /*body {
 	background-color: lightyellow;
 }*/
+
+img {
+	height: 50%;
+	width: 50%;
+	display: flex;
+}
+
+button {
+	text-align: center;
+	font-family: 'Playfair Display', serif;
+	font-size: 40px;
+	display: flex;
+	justify-content: center;
+}
+
+h3 {
+	text-align: center;
+	font-family: 'Playfair Display', serif;
+}

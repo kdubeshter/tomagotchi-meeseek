@@ -29,14 +29,37 @@ console.log('tomagotchi WoWEE')
 // Add an excercise() method to your tomagotchi, that affects certain properties
 // Add anything you can think of... use your imagination!
 
+
 class tomagotchi {
 	constructor(hunger, sleepiness, boredom){
 		this.hunger = 0;
 		this.sleepiness = 0;
 		this.boredom = 0;
 		this.age = 0;
+		this.img = document.querySelector('img');
+		this.h = document.querySelector('h3');
 	}	
+	// init(){
+	// 	// initial creation of tomagotchi
+	// 	this.img.style.visibility = 'hidden';
+	// 	this.h.style.visibility = 'hidden';
+	// 	this.render();
+	// }
+	// render(){
+	// 	this.img.style.visibility = 'visible';
+	// 	this.h.style.visibility = 'visible';
+
+
+	// }
 }
+
+let meeseek = new tomagotchi(0, 0, 0);
+
+
+const img = document.querySelector('img');
+const h = document.querySelector('h3');
+
+document.querySelector('button').addEventListener('click', tomagotchi.init);
 
 
 
