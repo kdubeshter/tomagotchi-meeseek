@@ -2,10 +2,31 @@
 	background-color: lightyellow;
 }*/
 
+
+/*section {
+	display: flex;
+}
+
+*/
+
 img {
 	height: 50%;
 	width: 50%;
+	justify-content: right;
+}
+
+div {
+	text-align: right;
+	font-family: 'Playfair Display', serif;
+	font-size: 25px;
 	display: flex;
+	flex-direction: column;
+	width: 30%;
+}
+
+#age {
+	border: 1px grey solid;
+	margin: 2px;
 }
 
 button {
@@ -20,3 +41,4 @@ h3 {
 	text-align: center;
 	font-family: 'Playfair Display', serif;
 }
+

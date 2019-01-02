@@ -30,6 +30,14 @@ console.log('tomagotchi WoWEE')
 // Add anything you can think of... use your imagination!
 
 
+const img = document.querySelector('img');
+const h = document.querySelector('h3');
+const hungry = document.getElementById('hungry');
+const sleepy = document.getElementById('sleep');
+const bored = document.getElementById('bored');
+const yearsOld = document.getElementById('age');
+
+
 class tomagotchi {
 	constructor(hunger, sleepiness, boredom){
 		this.hunger = 0;
@@ -39,27 +47,27 @@ class tomagotchi {
 		this.img = document.querySelector('img');
 		this.h = document.querySelector('h3');
 	}	
-	// init(){
-	// 	// initial creation of tomagotchi
-	// 	this.img.style.visibility = 'hidden';
-	// 	this.h.style.visibility = 'hidden';
-	// 	this.render();
-	// }
-	// render(){
+	// if want to add a button to generate tomagotchi - revisit and refactor
+	init(){
+	// initial creation of tomagotchi
+	 	this.img.style.visibility = 'hidden';
+	 	this.h.style.visibility = 'hidden';
+	 	return this.render();
+	}
+	render(){
 	// 	this.img.style.visibility = 'visible';
 	// 	this.h.style.visibility = 'visible';
-
-
-	// }
-}
+		hungry.textContent = `Hunger: ${this.hunger}`;
+		bored.textContent = `Boredom: ${this.boredom}`;
+		sleepy.textContent = `Sleepiness: ${this.sleepiness}`;
+		yearsOld.textContent = `Age: ${this.age}`;
+	}
+};
 
 let meeseek = new tomagotchi(0, 0, 0);
+meeseek.render();
 
-
-const img = document.querySelector('img');
-const h = document.querySelector('h3');
-
-document.querySelector('button').addEventListener('click', tomagotchi.init);
+// document.querySelector('button').addEventListener('click', tomagotchi.init);
 
 
 
