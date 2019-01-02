@@ -29,49 +29,84 @@ console.log('tomagotchi WoWEE')
 // Add an excercise() method to your tomagotchi, that affects certain properties
 // Add anything you can think of... use your imagination!
 
-
-const img = document.querySelector('img');
-const h = document.querySelector('h3');
+// refractor and add those applicable to game object vs. meeseeks class
+const img = document.getElementById('meeeseek');
+const h = document.getElementById('h');
 const hungry = document.getElementById('hungry');
 const sleepy = document.getElementById('sleep');
 const bored = document.getElementById('bored');
 const yearsOld = document.getElementById('age');
 
+const feedBtn = document.getElementById('feed');
+const lightBtn = document.getElementById('light');
+const playBtn = document.getElementById('play');
+// const createBtn = document.getElementById('createPet');
+const button = document.getElementsByTagName('button');
 
-class tomagotchi {
+class Tomagotchi {
 	constructor(hunger, sleepiness, boredom){
-		this.hunger = 0;
-		this.sleepiness = 0;
-		this.boredom = 0;
+		this.hunger = 1;
+		this.sleepiness = 1;
+		this.boredom = 1;
 		this.age = 0;
 		this.img = document.querySelector('img');
-		this.h = document.querySelector('h3');
+		this.h = document.querySelector('h3'); // Reuben recommend to move this to game object
+											   // can make it dynamic and change what he says
 	}	
 	// if want to add a button to generate tomagotchi - revisit and refactor
 	init(){
 	// initial creation of tomagotchi
-	 	this.img.style.visibility = 'hidden';
-	 	this.h.style.visibility = 'hidden';
-	 	return this.render();
+	 //	this.img.style.visibility = 'hidden';
+	 //	this.h.style.visibility = 'hidden'; 
+		return this.render();
 	}
 	render(){
-	// 	this.img.style.visibility = 'visible';
-	// 	this.h.style.visibility = 'visible';
-		hungry.textContent = `Hunger: ${this.hunger}`;
-		bored.textContent = `Boredom: ${this.boredom}`;
-		sleepy.textContent = `Sleepiness: ${this.sleepiness}`;
+		hungry.textContent = `Hunger: ${this.hunger} out of 10`;
+		bored.textContent = `Boredom: ${this.boredom} out of 10`;
+		sleepy.textContent = `Sleepiness: ${this.sleepiness} out of 10`;
 		yearsOld.textContent = `Age: ${this.age}`;
 	}
+	feed(){
+		meeseek.hunger--
+	}
+	light(){
+		let light = false;
+		const bodyColor = document.querySelector('body');
+		if(!light){
+			bodyColor.style.backgroundColor = 'darkgrey';
+			meeseek.sleepiness--;
+			light = true;
+		} else {
+			bodyColor.style.backgroundColor = 'lightyellow'
+			meeseek.sleepiness++;
+			light = false;
+		}
+	}
+	play(){
+		meeseek.boredom--;
+	}	
 };
 
-let meeseek = new tomagotchi(0, 0, 0);
+let meeseek = new Tomagotchi(1, 1, 1);
+meeseek.init;
 meeseek.render();
 
-// document.querySelector('button').addEventListener('click', tomagotchi.init);
+// createBtn.addEventListener('click', meeseek.render);
+// removed code related to additional creation of pet (hide / visible elements)
 
+// Game object
 
+// const game = {
+// 	display(msg) {
+// 	}
+// }
 
+// Event Listeners
+feedBtn.addEventListener('click', meeseek.feed);
 
+lightBtn.addEventListener('click', meeseek.light);
+
+playBtn.addEventListener('click', meeseek.play);
 
 
 

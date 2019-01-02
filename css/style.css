@@ -21,15 +21,14 @@ div {
 	font-size: 25px;
 	display: flex;
 	flex-direction: column;
-	width: 30%;
+	width: 50%;
 }
 
 #age {
-	border: 1px grey solid;
-	margin: 2px;
+	margin: 5px;
 }
 
-button {
+#createPet {
 	text-align: center;
 	font-family: 'Playfair Display', serif;
 	font-size: 40px;
