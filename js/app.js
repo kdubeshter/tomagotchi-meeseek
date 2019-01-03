@@ -65,6 +65,7 @@ const game = {
 	boredom: 1,
 	age: 0,
 	time: 60,
+	timeElapsed: 0,
 	startAge: true,
 	interval: 0,
 	createPet(petName){
@@ -83,9 +84,9 @@ const game = {
 	},
 	render(){ 
 		$('#hungry').html(`Hunger: ${this.hunger} out of 10`);
-		$('#bored').html(`Boredom: ${game.boredom} out of 10`);
-		$('#sleepy').html(`Sleepiness: ${game.sleepiness} out of 10`);
-		$('#age').html(`Age: ${game.age}`);
+		$('#bored').html(`Boredom: ${this.boredom} out of 10`);
+		$('#sleepy').html(`Sleepiness: ${this.sleepiness} out of 10`);
+		$('#age').html(`Age: ${this.age}`);
 	},
 	feed(){
 		game.hunger -= 1;
@@ -112,14 +113,15 @@ const game = {
 	aging(){
 		// pet shrinks
 		$('img').velocity({width: "-=500"}, 7000);
-		if(this.age > 0){
+		// need to get this working
+		if(this.age >= 0){
 			this.interval = setInterval( () => {
 				this.hunger += 1;
-				game.sleepiness += 1.5;
-				game.boredom += 0.7;
+				this.sleepiness += 1.5;
+				this.boredom += 0.7;
+				this.age += 2;
 				this.render();
-			}, 5000);
-
+			}, 2000);
 		}
 	}
 }

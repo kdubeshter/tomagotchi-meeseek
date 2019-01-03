@@ -1,19 +1,18 @@
-/*body {
-	background-color: lightyellow;
-}*/
 
+button {
+	display: flex-inline;
+	justify-content: center;
+
+	flex-direction: row;
+	margin: 10px;
+	align-items: baseline;
+	font-family: 'Happy Monkey', cursive;
+	font-size: 15px;
+
+}
 
 section {
 	display: flex;
-}
-
-
-button {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-evenly;
-	margin: 40px;
-	align-items: baseline;
 }
 
 .pet-status {
