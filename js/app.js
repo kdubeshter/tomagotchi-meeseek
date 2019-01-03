@@ -30,50 +30,53 @@ console.log('tomagotchi WoWEE')
 // Add anything you can think of... use your imagination!
 
 // refractor and add those applicable to game object vs. meeseeks class
-const img = document.getElementById('meeeseek');
-const h = document.getElementById('h');
-const hungry = document.getElementById('hungry');
-const sleepy = document.getElementById('sleep');
-const bored = document.getElementById('bored');
-const yearsOld = document.getElementById('age');
 
-// 
-const happyImg = document.getElementById('happy');
-happyImg.style.visibility = 'hidden';
-const danceImg = document.getElementById('dancing');
-danceImg.style.visibility = 'hidden';
-const beforeImg = document.getElementById('beforeDie');
-beforeImg.style.visibility = 'hidden';
+
+
+
+// Guide
+//const speak = document.getElementById('pet-speak');
+
+
+// 	<img id="happy-pet" src="https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png">
+//	<img id="dancing-pet" src="https://cdn140.picsart.com/240164869012212.png?r240x240">
+//	<img id="die-pet" src="https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png">
+const initImg = document.getElementById('init-pet');
+initImg.style.visibility = 'hidden';
+// const happyImg = document.getElementById('happy-pet');
+// happyImg.style.visibility = 'hidden';
+// const danceImg = document.getElementById('dancing-pet');
+// danceImg.style.visibility = 'hidden';
+// const deadImg = document.getElementById('die-pet');
+// deadImg.style.visibility = 'hidden';
 
 const feedBtn = document.getElementById('feed');
+feedBtn.style.visibility = 'hidden';
 const lightBtn = document.getElementById('light');
+lightBtn.style.visibility = 'hidden';
 const playBtn = document.getElementById('play');
+playBtn.style.visibility = 'hidden';
 // const createBtn = document.getElementById('createPet');
 const button = document.getElementsByTagName('button');
 
 class Tomagotchi {
-	constructor(hunger, sleepiness, boredom){
+	constructor(name){
+		this.name = name;	
 		this.hunger = 1;
 		this.sleepiness = 1;
 		this.boredom = 1;
 		this.age = 0;
-		this.name = '';
 		this.img = document.querySelector('img');
-		this.h = document.querySelector('h3'); // Reuben recommend to move this to game object
-											   // can make it dynamic and change what he says
-	}	
+		this.speak = document.getElementById('pet-speak')
+	};	
 	// if want to add a button to generate tomagotchi - revisit and refactor
-	init(){
+	init(name){
 	// initial creation of tomagotchi
 	 //	this.img.style.visibility = 'hidden';
 	 //	this.h.style.visibility = 'hidden'; 
-		return this.render();
-	}
-	render(){
-		hungry.textContent = `Hunger: ${meeseek.hunger} out of 10`;
-		bored.textContent = `Boredom: ${this.boredom} out of 10`;
-		sleepy.textContent = `Sleepiness: ${this.sleepiness} out of 10`;
-		yearsOld.textContent = `Age: ${this.age}`;
+	 	const pet = new Tomagotchi(name);
+
+		game.render();
 	}
 	feed(){
 		meeseek.hunger--;
@@ -99,23 +102,60 @@ class Tomagotchi {
 		this.boredom--;
 	}	
 	getName(){
-		
+
 	}
 };
-
-let meeseek = new Tomagotchi(1, 1, 1);
-meeseek.init();
 
 // createBtn.addEventListener('click', meeseek.render);
 // removed code related to additional creation of pet (hide / visible elements)
 
 
+const game = {
+	pet: 1,
+	speak: document.querySelector('h3'),
+	createPet(name){
+	 	initImg.style.visibility = 'visible';
+	 	feedBtn.style.visibility = 'visible';
+	 	lightBtn.style.visibility = 'visible';
+	 	playBtn.style.visibility = 'visible';
+
+
+		this.speak.val(`Hi, my name is ${name}`)
+
+		const form = document.querySelector('form');
+		form.style.visibility = 'hidden';
+
+		Tomagotchi.init();
+	},
+	render(){
+		$('#hungry').val(`Hunger: ${Tomagotchi.hunger} out of 10`);
+		$('#bored').val(`Boredom: ${Tomagotchi.boredom} out of 10`);
+		$('#sleepy').val(`Sleepiness: ${Tomagotchi.sleepiness} out of 10`);
+		$('#age').val(`Age: ${Tomagotchi.age}`);
+	}
+
+}
+
 // Event Listeners
-feedBtn.addEventListener('click', meeseek.feed);
+const form = document.querySelector('form')
+const petName = document.querySelector('pet-name')
 
-lightBtn.addEventListener('click', meeseek.light);
+form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	const petName = $("input[name='pet']").val();
+	Tomagotchi.name = petName;
+	console.log(petName, 'this is his / her name');
+	console.log(e.target)
+	//game.createPet();
+})
 
-playBtn.addEventListener('click', meeseek.play);
+
+// Buttons / Event Listeners
+$('#feed').on('click', Tomagotchi.feed);
+$('#light').on('click', Tomagotchi.light);
+$('#play').on('click', Tomagotchi.play);
+
+
 
 
 

@@ -2,25 +2,33 @@
 <html>
 <head>
 	<title>Tomagotchi</title>
-	<h3 id="h">Meet your tomagotchi</h3>
+	<h3 id="pet-speak">Meet your tomagotchi</h3>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-	<input type="text" value="Enter the name of your pet">
-	<button id="feed">Feed your pet</button>
-	<button id="light">Light switch</button>
-	<button id="play">Let's play</button>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.2/velocity.ui.min.js"></script>
+
 
 </head>
 <body>
+	<form>	
+		<input type="text" id="pet-name" placeholder="Name your pet">
+		<input type="submit" id="submit">
+	</form>
+		<button id="feed">Feed</button>
+		<button id="light">Light</button>
+		<button id="play">Play</button>
 	<section>
-		<img id="meeseek" src="https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png">
-		<img id="happy" src="https://steemitimages.com/DQmfHedFJStzXRDC2R5fnWrAiYJqWaknPaYTfeQWQe8Boxh/flat%2C800x800%2C075%2Cf.u1.jpg">
-		<img id="dancing" src="https://cdn140.picsart.com/240164869012212.png?r240x240">
-		<img id="beforeDie" src="https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png">
-		<div id="hungry"></div>
-		<div id="sleep"></div>
-		<div id="bored"></div>
-		<div id="age"></div>
+		<div id="pet-img">
+			<img id="init-pet" src="https://steemitimages.com/DQmfHedFJStzXRDC2R5fnWrAiYJqWaknPaYTfeQWQe8Boxh/flat%2C800x800%2C075%2Cf.u1.jpg">
+		</div>
+		<div id="pet-status">
+			<div id="hungry"></div>
+			<div id="sleep"></div>
+			<div id="bored"></div>
+			<div id="age"></div>
+		</div>	
 	</section>
 
 	<script src="js/app.js" type="text/javascript"></script>
