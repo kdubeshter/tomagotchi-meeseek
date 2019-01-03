@@ -77,8 +77,7 @@ const game = {
 	 	$('#play').css('visibility', 'visible');
 
 		petName = this.name;	
-	 	$('#speak').html("Hi! I'm Mr. " + petName + " look at me");
-	 	console.log("Hi! I'm Mr. " + petName + " look at me");
+	 	$('#speak').html("Hi! I'm mr. " + petName + " look at me!").css('font-size', '30px');
  		
 		$('form').remove();
 
