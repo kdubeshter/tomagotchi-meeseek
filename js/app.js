@@ -42,7 +42,6 @@ console.log('tomagotchi WoWEE')
 //	<img id="dancing-pet" src="https://cdn140.picsart.com/240164869012212.png?r240x240">
 //	<img id="die-pet" src="https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png">
 
-
 // Hidden elements on page prior to creating pet
 
 $('#init-pet').css('visibility', 'hidden');
@@ -55,13 +54,8 @@ class Tomagotchi {
 	constructor(petName){
 		this.name = petName;
 		this.age = 0;	
-	};	
-
+	}
 };
-
-// createBtn.addEventListener('click', meeseek.render);
-// removed code related to additional creation of pet (hide / visible elements)
-
 
 const game = {
 	pet: 1,
@@ -70,6 +64,9 @@ const game = {
 	sleepiness: 1,
 	boredom: 1,
 	age: 0,
+	time: 60,
+	startAge: true,
+	interval: 0,
 	createPet(petName){
 	 	$('#init-pet').css('visibility', 'visible');
 	 	$('#feed').css('visibility', 'visible');
@@ -80,38 +77,54 @@ const game = {
 	 	$('#speak').html("Hi! I'm mr. " + petName + " look at me!").css('font-size', '30px');
  		
 		$('form').remove();
-
-	 	const pet = new Tomagotchi();
+	 	//const pet = new Tomagotchi();
 	 	this.render();
+	 	this.aging();
 	},
 	render(){ 
-		$('#hungry').val(`Hunger: ${this.hunger} out of 10`);
-		$('#bored').val(`Boredom: ${this.boredom} out of 10`);
-		$('#sleepy').val(`Sleepiness: ${this.sleepiness} out of 10`);
-		$('#age').val(`Age: ${this.age}`);
+		$('#hungry').html(`Hunger: ${this.hunger} out of 10`);
+		$('#bored').html(`Boredom: ${game.boredom} out of 10`);
+		$('#sleepy').html(`Sleepiness: ${game.sleepiness} out of 10`);
+		$('#age').html(`Age: ${game.age}`);
 	},
 	feed(){
-		this.hunger--;
+		game.hunger -= 1;
+		$('#hungry').html(`Hunger: ${game.hunger} out of 10`);
 	},
 	light(){
 		let light = false;
 		if(!light){
 			$('body').css('background-color','darkgrey');
-			this.sleepiness--;
+			game.sleepiness -= 1;
+			$('#sleepy').html(`Hunger: ${game.sleepiness} out of 10`);
 			light = true;
-		} else {
+		} else {  // this part not working
 			$('body').css('background-color','lightyellow');
-			this.sleepiness++;
+			game.sleepiness += 1;
+			$('#sleepy').html(`Hunger: ${game.sleepiness} out of 10`);
 			light = false;
 		}
 	},
 	play(){
-		this.boredom--;
-	}	
+		game.boredom -= 1;
+		$('#bored').html(`Boredom: ${game.boredom} out of 10`);
+	},
+	aging(){
+		// pet shrinks
+		$('img').velocity({width: "-=500"}, 7000);
+		if(this.age > 0){
+			this.interval = setInterval( () => {
+				this.hunger += 1;
+				game.sleepiness += 1.5;
+				game.boredom += 0.7;
+				this.render();
+			}, 5000);
+
+		}
+	}
 }
 
 // Event Listeners
-
 $('form').on('submit', (e) => {
 	e.preventDefault();
 	
@@ -119,16 +132,17 @@ $('form').on('submit', (e) => {
 	game.name = petName;
 
 	game.createPet();
+	game.aging();
 })
 
 
-// Buttons / Event Listeners
+// Buttons 
 $('#feed').on('click', game.feed);
 $('#light').on('click', game.light);
 $('#play').on('click', game.play);
 
 
-
+// Initial Pet Moving
 $('img').velocity({
 	rotateX: 30,
 	translateX: 60,

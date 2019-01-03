@@ -9,21 +9,28 @@ section {
 
 
 button {
-
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin: 40px;
+	align-items: baseline;
 }
 
-div .pet-status {
+.pet-status {
 	justify-content: right;
 	font-family: 'Playfair Display', serif;
 	font-size: 25px;
 	display: flex;
 	flex-direction: column;
 	width: 50%;
+	margin: 20px;
 }
 
-div .pet-img {
+.pet-img {
 	justify-content: left;
-	width: 50%;
+	width: 10%;
+	height: 40%;
+	margin: 20px;
 }
 
 form {
