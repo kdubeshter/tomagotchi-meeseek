@@ -41,69 +41,22 @@ console.log('tomagotchi WoWEE')
 // 	<img id="happy-pet" src="https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png">
 //	<img id="dancing-pet" src="https://cdn140.picsart.com/240164869012212.png?r240x240">
 //	<img id="die-pet" src="https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png">
-const initImg = document.getElementById('init-pet');
-initImg.style.visibility = 'hidden';
-// const happyImg = document.getElementById('happy-pet');
-// happyImg.style.visibility = 'hidden';
-// const danceImg = document.getElementById('dancing-pet');
-// danceImg.style.visibility = 'hidden';
-// const deadImg = document.getElementById('die-pet');
-// deadImg.style.visibility = 'hidden';
 
-const feedBtn = document.getElementById('feed');
-feedBtn.style.visibility = 'hidden';
-const lightBtn = document.getElementById('light');
-lightBtn.style.visibility = 'hidden';
-const playBtn = document.getElementById('play');
-playBtn.style.visibility = 'hidden';
-// const createBtn = document.getElementById('createPet');
-const button = document.getElementsByTagName('button');
+
+// Hidden elements on page prior to creating pet
+
+$('#init-pet').css('visibility', 'hidden');
+$('#feed').css('visibility', 'hidden');
+$('#light').css('visibility', 'hidden');
+$('#play').css('visibility', 'hidden');
+
 
 class Tomagotchi {
-	constructor(name){
-		this.name = name;	
-		this.hunger = 1;
-		this.sleepiness = 1;
-		this.boredom = 1;
-		this.age = 0;
-		this.img = document.querySelector('img');
-		this.speak = document.getElementById('pet-speak')
+	constructor(petName){
+		this.name = petName;
+		this.age = 0;	
 	};	
-	// if want to add a button to generate tomagotchi - revisit and refactor
-	init(name){
-	// initial creation of tomagotchi
-	 //	this.img.style.visibility = 'hidden';
-	 //	this.h.style.visibility = 'hidden'; 
-	 	const pet = new Tomagotchi(name);
 
-		game.render();
-	}
-	feed(){
-		meeseek.hunger--;
-		this.hunger--;
-	}
-	light(){
-		let light = false;
-		const bodyColor = document.querySelector('body');
-		if(!light){
-			bodyColor.style.backgroundColor = 'darkgrey';
-			meeseek.sleepiness--;
-			this.sleepiness--;
-			light = true;
-		} else {
-			bodyColor.style.backgroundColor = 'lightyellow'
-			meeseek.sleepiness++;
-			this.sleepiness++;
-			light = false;
-		}
-	}
-	play(){
-		meeseek.boredom--;
-		this.boredom--;
-	}	
-	getName(){
-
-	}
 };
 
 // createBtn.addEventListener('click', meeseek.render);
@@ -112,52 +65,79 @@ class Tomagotchi {
 
 const game = {
 	pet: 1,
-	speak: document.querySelector('h3'),
-	createPet(name){
-	 	initImg.style.visibility = 'visible';
-	 	feedBtn.style.visibility = 'visible';
-	 	lightBtn.style.visibility = 'visible';
-	 	playBtn.style.visibility = 'visible';
+	name: '',
+	hunger: 1,
+	sleepiness: 1,
+	boredom: 1,
+	age: 0,
+	createPet(petName){
+	 	$('#init-pet').css('visibility', 'visible');
+	 	$('#feed').css('visibility', 'visible');
+	 	$('#light').css('visibility', 'visible');
+	 	$('#play').css('visibility', 'visible');
 
+		petName = this.name;	
+	 	$('#speak').html("Hi! I'm Mr. " + petName + " look at me");
+	 	console.log("Hi! I'm Mr. " + petName + " look at me");
+ 		
+		$('form').remove();
 
-		this.speak.val(`Hi, my name is ${name}`)
-
-		const form = document.querySelector('form');
-		form.style.visibility = 'hidden';
-
-		Tomagotchi.init();
+	 	const pet = new Tomagotchi();
+	 	this.render();
 	},
-	render(){
-		$('#hungry').val(`Hunger: ${Tomagotchi.hunger} out of 10`);
-		$('#bored').val(`Boredom: ${Tomagotchi.boredom} out of 10`);
-		$('#sleepy').val(`Sleepiness: ${Tomagotchi.sleepiness} out of 10`);
-		$('#age').val(`Age: ${Tomagotchi.age}`);
-	}
-
+	render(){ 
+		$('#hungry').val(`Hunger: ${this.hunger} out of 10`);
+		$('#bored').val(`Boredom: ${this.boredom} out of 10`);
+		$('#sleepy').val(`Sleepiness: ${this.sleepiness} out of 10`);
+		$('#age').val(`Age: ${this.age}`);
+	},
+	feed(){
+		this.hunger--;
+	},
+	light(){
+		let light = false;
+		if(!light){
+			$('body').css('background-color','darkgrey');
+			this.sleepiness--;
+			light = true;
+		} else {
+			$('body').css('background-color','lightyellow');
+			this.sleepiness++;
+			light = false;
+		}
+	},
+	play(){
+		this.boredom--;
+	}	
 }
 
 // Event Listeners
-const form = document.querySelector('form')
-const petName = document.querySelector('pet-name')
 
-form.addEventListener('submit', (e) => {
+$('form').on('submit', (e) => {
 	e.preventDefault();
-	const petName = $("input[name='pet']").val();
-	Tomagotchi.name = petName;
-	console.log(petName, 'this is his / her name');
-	console.log(e.target)
-	//game.createPet();
+	
+	const petName = $("input[name='name']").val();
+	game.name = petName;
+
+	game.createPet();
 })
 
 
 // Buttons / Event Listeners
-$('#feed').on('click', Tomagotchi.feed);
-$('#light').on('click', Tomagotchi.light);
-$('#play').on('click', Tomagotchi.play);
+$('#feed').on('click', game.feed);
+$('#light').on('click', game.light);
+$('#play').on('click', game.play);
 
 
 
-
+$('img').velocity({
+	rotateX: 30,
+	translateX: 60,
+}, {
+	duration: 5000,
+	loop: 3,
+	deplay: 10
+})
 
 
 

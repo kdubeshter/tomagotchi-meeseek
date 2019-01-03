@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Tomagotchi</title>
-	<h3 id="pet-speak">Meet your tomagotchi</h3>
+	<h3 id="speak">Create your Tomagotchi!</h3>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
@@ -13,7 +13,7 @@
 </head>
 <body>
 	<form>	
-		<input type="text" id="pet-name" placeholder="Name your pet">
+		<input type="text" id="pet-name" name="name" placeholder="Name your pet">
 		<input type="submit" id="submit">
 	</form>
 		<button id="feed">Feed</button>
@@ -25,7 +25,7 @@
 		</div>
 		<div id="pet-status">
 			<div id="hungry"></div>
-			<div id="sleep"></div>
+			<div id="sleepy"></div>
 			<div id="bored"></div>
 			<div id="age"></div>
 		</div>	
