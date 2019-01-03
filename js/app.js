@@ -37,6 +37,14 @@ const sleepy = document.getElementById('sleep');
 const bored = document.getElementById('bored');
 const yearsOld = document.getElementById('age');
 
+// 
+const happyImg = document.getElementById('happy');
+happyImg.style.visibility = 'hidden';
+const danceImg = document.getElementById('dancing');
+danceImg.style.visibility = 'hidden';
+const beforeImg = document.getElementById('beforeDie');
+beforeImg.style.visibility = 'hidden';
+
 const feedBtn = document.getElementById('feed');
 const lightBtn = document.getElementById('light');
 const playBtn = document.getElementById('play');
@@ -49,6 +57,7 @@ class Tomagotchi {
 		this.sleepiness = 1;
 		this.boredom = 1;
 		this.age = 0;
+		this.name = '';
 		this.img = document.querySelector('img');
 		this.h = document.querySelector('h3'); // Reuben recommend to move this to game object
 											   // can make it dynamic and change what he says
@@ -61,13 +70,14 @@ class Tomagotchi {
 		return this.render();
 	}
 	render(){
-		hungry.textContent = `Hunger: ${this.hunger} out of 10`;
+		hungry.textContent = `Hunger: ${meeseek.hunger} out of 10`;
 		bored.textContent = `Boredom: ${this.boredom} out of 10`;
 		sleepy.textContent = `Sleepiness: ${this.sleepiness} out of 10`;
 		yearsOld.textContent = `Age: ${this.age}`;
 	}
 	feed(){
-		meeseek.hunger--
+		meeseek.hunger--;
+		this.hunger--;
 	}
 	light(){
 		let light = false;
@@ -75,31 +85,30 @@ class Tomagotchi {
 		if(!light){
 			bodyColor.style.backgroundColor = 'darkgrey';
 			meeseek.sleepiness--;
+			this.sleepiness--;
 			light = true;
 		} else {
 			bodyColor.style.backgroundColor = 'lightyellow'
 			meeseek.sleepiness++;
+			this.sleepiness++;
 			light = false;
 		}
 	}
 	play(){
 		meeseek.boredom--;
+		this.boredom--;
 	}	
+	getName(){
+		
+	}
 };
 
 let meeseek = new Tomagotchi(1, 1, 1);
-meeseek.init;
-meeseek.render();
+meeseek.init();
 
 // createBtn.addEventListener('click', meeseek.render);
 // removed code related to additional creation of pet (hide / visible elements)
 
-// Game object
-
-// const game = {
-// 	display(msg) {
-// 	}
-// }
 
 // Event Listeners
 feedBtn.addEventListener('click', meeseek.feed);

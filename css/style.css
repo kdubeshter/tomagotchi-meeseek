@@ -24,6 +24,10 @@ div {
 	width: 50%;
 }
 
+input {
+	width: 100%;
+}
+
 #age {
 	margin: 5px;
 }
