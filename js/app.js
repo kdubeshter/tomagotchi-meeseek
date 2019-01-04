@@ -61,7 +61,7 @@ const game = {
 	pet: 1,
 	name: '',
 	hunger: 1,
-	sleepiness: 1,
+	sleepy: 1,
 	boredom: 1,
 	age: 0,
 	time: 60,
@@ -94,20 +94,20 @@ const game = {
 	checkHealth(){
 		if(this.hunger < 0){
 			this.hunger = 0;
-		}
+		};
 		if(this.boredom < 0){
 			this.boredom = 0;
-		}
-		if(this.sleepiness < 0){
-			this.sleepines = 0;
-		}
+		};
+		if(this.sleepy < 0){
+			this.sleep = 0;
+		};
 		if(this.hunger >= 10){
 			this.dead();
-		}
+		};
 		if(this.boredom >= 10){
 			this.dead();
-		}
-		if(this.sleepiness >= 10){
+		};
+		if(this.sleepy >= 10){
 			this.dead();
 		}
 	},
@@ -115,69 +115,68 @@ const game = {
 		this.checkHealth();
 		$('#hungry').html(`Hunger: ${this.hunger} out of 10`);
 		$('#bored').html(`Boredom: ${this.boredom} out of 10`);
-		$('#sleepy').html(`Sleepiness: ${this.sleepiness} out of 10`);
+		$('#sleepy').html(`Sleepiness: ${this.sleepy} out of 10`);
 		$('#age').html(`Age: ${this.age}`);
 	},
 	feed(){
 		game.hunger -= 1;
 		game.render();
 		
-		// switch pet img
-		if($('#play-pet').attr('src') === "https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png"){
+		$('body').css('background-color','white');
 
-			const $happyPet = $('<img id="happy-pet"></img>');
-			$happyPet.attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
-			$('#pet-img').append($happyPet);
-		}
+		// each time feed is selected, create more pets
+		const $initPet = $('<img id="init-pet"></img>');
+		$initPet.attr('src', 'https://steemitimages.com/DQmfHedFJStzXRDC2R5fnWrAiYJqWaknPaYTfeQWQe8Boxh/flat%2C800x800%2C075%2Cf.u1.jpg');
+		$('#pet-img').append($initPet);
+		// remove other pet images
+		$('#play-pet').remove();
+		$('#happy-pet').remove();
 
 		// check pet hungry levels
 		if(game.hunger > 0){
-			$('#speak').html("Hi! I'm mr. " + game.name + " look at me!");
-		}	
-		if(game.hunger < 7){
 			$('#speak').html(`mr. ${game.name} is hunnggrrryyy`);
+		};	
+		if(game.hunger < 5){
+			$('#speak').html(`Hi! I'm mr. ${game.name} look at me!`);
 		}
 	},
 	light(){
-		//let light = false;
-		game.sleepiness -= 1;
-		game.render();
-		// change pet img
-		if($('#play-pet').attr('src') === "https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png"){
-			$('#play-pet').remove();
-
-			const $initPet = $('<img id="init-pet"></img>');
-			$initPet.attr('src', 'https://steemitimages.com/DQmfHedFJStzXRDC2R5fnWrAiYJqWaknPaYTfeQWQe8Boxh/flat%2C800x800%2C075%2Cf.u1.jpg');
-			$('#pet-img').append($initPet);
-		}	
-
+		let light = false;
+		
+		game.sleepy -= 1;
+		game.render();		
+		
 		// pet sleepiness levels
-		if(game.sleepiness <= 0){
-			game.sleepiness = 0;
-		}
-		if(game.sleepiness <= 3){
-			$('#speak').html(`mr. ${game.name} is not tired. Let's play and teach Jerry how to swing!`);
-			$('body').css('background-color','lightyellow');
-		}
-		if(game.sleepiness > 3 && game.sleepiness < 7){
-			$('#speak').html("Hi! I'm mr. " + game.name + " look at me!");
-		}
-		if(game.sleepiness <= 8){
-			$('#speak').html(`mr. ${game.name} IS TIRED!! Please turn off the light Jerry`);
-			$('body').css('background-color','rgb(169,169,169)');
-		}
+		if(game.sleepy < 0){
+			game.sleepy = 0;
+		};
+
+		$('#speak').html(`mr. ${game.name} IS TIRED!! Please turn off the light Jerry`);
+		$('body').css('background-color','rgb(169,169,169)');
+
+		// change pet img
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+
+		const $happyPet = $('<img id="happy-pet"></img>');
+		$happyPet.attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png')
+		$('#pet-img').append($happyPet);
 	},
 	play(){
 		game.boredom -= 1;
 		game.render();
-		if(game.boredom <= 0){
-			game.boredom === 0;
-		}
+
+		$('body').css('background-color','white');
+
 		const $playImg = $('<img id="play-pet"></img>');
 		$('#play-pet').attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
 		$('#pet-img').append($playImg);
-		
-		$('#init-pet').remove();
 		
 		$('#play-pet').velocity({
 			rotateX: "+=360",
@@ -187,7 +186,16 @@ const game = {
 			loop: 2,
 			easing: "linear",
 			deplay: 10
-		})
+		});
+
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
+		$('#init-pet').remove();
+		$('#happy-pet').remove();
 	},
 	aging(){
 		// pet shrinks
@@ -198,18 +206,18 @@ const game = {
 					this.hunger = 0;
 				}
 				this.hunger += 1;
-				if(this.sleepiness < 0){
-					this.sleepiness = 0;
+				if(this.sleepy < 0){
+					this.sleepy = 0;
 				}
-				this.sleepiness += 1.5;
+				this.sleepy += 1.5;
 				if(this.boredom < 0){
 					this.boredom = 0;
 				}
 				this.boredom += 0.25;
 				this.age += 2;
 				this.render();
-			}, 7000);
-		if(this.hunger >= 10 || this.sleepiness >= 10 || this.boredom >= 10) {
+			}, 5000);
+		if(this.hunger >= 10 || this.sleepy >= 10 || this.boredom >= 10) {
 				this.dead();
 			}
 		}	
@@ -219,16 +227,23 @@ const game = {
 		$('button').remove();
 		$('div').remove();
 
-		const $deadImg = $('<img id="dead-pet"></img>');
-		$deadImg.attr('src', 'https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png');
-		$('body').append($deadImg);
-		$('body').css('background-color', 'white');
+
+		if($('#dead-img').attr('src') === "https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png"){
+
+		} else {
+			const $deadImg = $('<img id="dead-pet"></img>');
+			$deadImg.attr('src', 'https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png');
+			$('body').append($deadImg);
+			$('body').css('background-color', 'white');
+		}
 
 		$('#speak').remove();
 	}
 }
 
-// Event Listeners
+// EVENT LISTENERS
+
+// Start game: initial form to enter pet name
 $('form').on('submit', (e) => {
 	e.preventDefault();
 	
@@ -244,9 +259,6 @@ $('form').on('submit', (e) => {
 $('#feed').on('click', game.feed);
 $('#light').on('click', game.light);
 $('#play').on('click', game.play);
-
-
-// Initial Pet Moving
 
 
 
