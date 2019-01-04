@@ -128,6 +128,16 @@ const game = {
 		const $initPet = $('<img id="init-pet"></img>');
 		$initPet.attr('src', 'https://steemitimages.com/DQmfHedFJStzXRDC2R5fnWrAiYJqWaknPaYTfeQWQe8Boxh/flat%2C800x800%2C075%2Cf.u1.jpg');
 		$('#pet-img').append($initPet);
+		
+		$('#init-pet').velocity({
+			rotateX: 30,
+			translateX: 60,
+		}, {
+			duration: 5000,
+			loop: 1,
+			deplay: 10
+		});
+
 		// remove other pet images
 		$('#play-pet').remove();
 		$('#happy-pet').remove();
@@ -141,7 +151,7 @@ const game = {
 		}
 	},
 	light(){
-		let light = false;
+		//let light = false;
 		
 		game.sleepy -= 1;
 		game.render();		
@@ -173,20 +183,22 @@ const game = {
 		game.render();
 
 		$('body').css('background-color','white');
+		$('#speak').html(`mr. ${game.name} loves to play`);
 
 		const $playImg = $('<img id="play-pet"></img>');
-		$('#play-pet').attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
+		$playImg.attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
 		$('#pet-img').append($playImg);
-		
+
 		$('#play-pet').velocity({
 			rotateX: "+=360",
 			translateX: 100,
 		}, 	{
-			duration: 5000,
+			duration: 2000,
 			loop: 2,
 			easing: "linear",
-			deplay: 10
+			deplay: 5,
 		});
+		
 
 		$('#init-pet').remove();
 		$('#happy-pet').remove();
@@ -259,7 +271,6 @@ $('form').on('submit', (e) => {
 $('#feed').on('click', game.feed);
 $('#light').on('click', game.light);
 $('#play').on('click', game.play);
-
 
 
 

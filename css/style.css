@@ -1,31 +1,26 @@
 
-button {
-	display: flex-inline;
-	justify-content: center;
+.buttons, .pet-status {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-around;
+}
 
-	flex-direction: row;
-	margin: 10px;
-	align-items: baseline;
+.feed, .light, .play {
+	margin: 40px 40px 40px 40px;
+	width: 100%;
 	font-family: 'Happy Monkey', cursive;
 	font-size: 15px;
-
 }
 
-section {
-	display: flex;
-}
-
-.pet-status {
-	justify-content: center;
-	font-family: 'Playfair Display', serif;
-	font-size: 25px;
-	display: flex;
-	flex-direction: row;
-	width: 50%;
-	margin: 20px;
+.hungry, .sleepy, .bored, .age {
+	margin: 50px 10px 50px 10px;
+	font-family: 'Happy Monkey', cursive;
+	width: 100%;
+	margin: auto;
 }
 
 .pet-img {
+	display: flex;
 	justify-content: center;
 	width: 10%;
 	height: 40%;
