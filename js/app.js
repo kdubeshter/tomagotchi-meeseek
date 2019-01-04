@@ -100,35 +100,65 @@ const game = {
 	feed(){
 		game.hunger -= 1;
 		game.render();
+		
+		// switch pet img
+		if($('#play-pet').attr('src') === "https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png"){
+
+			const $happyPet = $('<img id="happy-pet"></img>');
+			$happyPet.attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
+			$('#pet-img').append($happyPet);
+		}
+
+		// check pet hungry levels
+		if(game.hunger > 0){
+			$('#speak').html("Hi! I'm mr. " + game.name + " look at me!");
+		}	
+		if(game.hunger < 7){
+			$('#speak').html(`mr. ${game.name} is hunnggrrryyy`);
+		}
+		if(game.hunger > 10){
+			game.dead();
+		}
 	},
 	light(){
-		let light = false;
+		//let light = false;
+		game.sleepiness -= 1;
+		game.render();
+		// change pet img
+		if($('#play-pet').attr('src') === "https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png"){
+			$('#play-pet').remove();
+
+			const $initPet = $('<img id="init-pet"></img>');
+			$initPet.attr('src', 'https://steemitimages.com/DQmfHedFJStzXRDC2R5fnWrAiYJqWaknPaYTfeQWQe8Boxh/flat%2C800x800%2C075%2Cf.u1.jpg');
+			$('#pet-img').append($initPet);
+		}	
+
+		// pet sleepiness levels
 		if(game.sleepiness === 0){
-			$('#speak').html(`mr. ${game.name} is not tired. Let's play and teach Jerry how to swing!`)
-		}
-		if(!light){
-			$('body').css('background-color','rgb(169,169,169)');
-			game.sleepiness -= 1;
-			light = true;
-			game.render();
-		} 
-		if($('body').css('background-color') === 'rgb(169,169,169)'){ // this part not working
+			$('#speak').html(`mr. ${game.name} is not tired. Let's play and teach Jerry how to swing!`);
 			$('body').css('background-color','lightyellow');
-			game.sleepiness += 1;
-			light = false;
-			game.render();
+		}
+		if(game.sleepiness > 0 && game.sleepiness < 7){
+			$('#speak').html("Hi! I'm mr. " + game.name + " look at me!");
+		}
+		if(game.sleepiness < 8){
+			$('#speak').html(`mr. ${game.name} IS TIRED!! Please turn off the light Jerry`);
+			$('body').css('background-color','rgb(169,169,169)');
+		}
+		if(game.sleepiness > 10){
+			game.dead();
 		}
 	},
 	play(){
 		game.boredom -= 1;
 		game.render();
 		
-		$('#init-pet').remove();
-
 		const $playImg = $('<img id="play-pet"></img>');
 		$('#play-pet').attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
 		$('#pet-img').append($playImg);
-
+		
+		$('#init-pet').remove();
+		
 		$('#play-pet').velocity({
 			rotateX: "+=360",
 			translateX: 100,
@@ -138,14 +168,26 @@ const game = {
 			easing: "linear",
 			deplay: 10
 		})
+		if(game.boredom > 10){
+			game.dead();
+		}
 	},
 	aging(){
 		// pet shrinks
 //		$('img').velocity({width: "-=500"}, 7000);
 		if(this.age >= 0){
 			this.interval = setInterval( () => {
+				if(this.hunger < 0){
+					this.hunger = 0;
+				}
 				this.hunger += 1;
+				if(this.sleepiness < 0){
+					this.sleepiness = 0;
+				}
 				this.sleepiness += 1.5;
+				if(this.boredom < 0){
+					this.boredom = 0;
+				}
 				this.boredom += 0.25;
 				this.age += 2;
 				this.render();
@@ -157,11 +199,13 @@ const game = {
 	},
 	dead(){
 		$('#init-pet').remove();
-		$('body').remove();
+		$('button').remove();
+		$('div').remove();
 
 		const $deadImg = $('<img id="dead-pet"></img>');
-		$('#dead-pet').attr('src', 'https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png');
-		$('title').append($deadImg);
+		$deadImg.attr('src', 'https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png');
+		$('body').append($deadImg);
+		$('body').css('background-color', 'white');
 
 		$('#speak').remove();
 	}

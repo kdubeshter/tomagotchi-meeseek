@@ -16,17 +16,17 @@ section {
 }
 
 .pet-status {
-	justify-content: right;
+	justify-content: center;
 	font-family: 'Playfair Display', serif;
 	font-size: 25px;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	width: 50%;
 	margin: 20px;
 }
 
 .pet-img {
-	justify-content: left;
+	justify-content: center;
 	width: 10%;
 	height: 40%;
 	margin: 20px;
@@ -48,3 +48,6 @@ input {
 	width: 30%;
 }
 
+.dead-pet {
+	width: 100%;
+}
