@@ -79,6 +79,15 @@ const game = {
  		
 		$('form').remove();
 	 	//const pet = new Tomagotchi();
+	 	$('#init-pet').velocity({
+			rotateX: 30,
+			translateX: 60,
+		}, {
+			duration: 5000,
+			loop: 1,
+			deplay: 10
+		});
+
 	 	this.render();
 	 	this.aging();
 	},
@@ -90,39 +99,71 @@ const game = {
 	},
 	feed(){
 		game.hunger -= 1;
-		$('#hungry').html(`Hunger: ${game.hunger} out of 10`);
+		game.render();
 	},
 	light(){
 		let light = false;
+		if(game.sleepiness === 0){
+			$('#speak').html(`mr. ${game.name} is not tired. Let's play and teach Jerry how to swing!`)
+		}
 		if(!light){
-			$('body').css('background-color','darkgrey');
+			$('body').css('background-color','rgb(169,169,169)');
 			game.sleepiness -= 1;
-			$('#sleepy').html(`Hunger: ${game.sleepiness} out of 10`);
 			light = true;
-		} else {  // this part not working
+			game.render();
+		} 
+		if($('body').css('background-color') === 'rgb(169,169,169)'){ // this part not working
 			$('body').css('background-color','lightyellow');
 			game.sleepiness += 1;
-			$('#sleepy').html(`Hunger: ${game.sleepiness} out of 10`);
 			light = false;
+			game.render();
 		}
 	},
 	play(){
 		game.boredom -= 1;
-		$('#bored').html(`Boredom: ${game.boredom} out of 10`);
+		game.render();
+		
+		$('#init-pet').remove();
+
+		const $playImg = $('<img id="play-pet"></img>');
+		$('#play-pet').attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
+		$('#pet-img').append($playImg);
+
+		$('#play-pet').velocity({
+			rotateX: "+=360",
+			translateX: 100,
+		}, 	{
+			duration: 5000,
+			loop: 2,
+			easing: "linear",
+			deplay: 10
+		})
 	},
 	aging(){
 		// pet shrinks
-		$('img').velocity({width: "-=500"}, 7000);
-		// need to get this working
+//		$('img').velocity({width: "-=500"}, 7000);
 		if(this.age >= 0){
 			this.interval = setInterval( () => {
 				this.hunger += 1;
 				this.sleepiness += 1.5;
-				this.boredom += 0.7;
+				this.boredom += 0.25;
 				this.age += 2;
 				this.render();
-			}, 2000);
-		}
+			}, 10000);
+		if(this.hunger >= 10 || this.sleepiness >= 10 || this.boredom >= 10) {
+				this.dead();
+			}
+		}	
+	},
+	dead(){
+		$('#init-pet').remove();
+		$('body').remove();
+
+		const $deadImg = $('<img id="dead-pet"></img>');
+		$('#dead-pet').attr('src', 'https://cdn.dribbble.com/users/4971/screenshots/2846308/mr-meeseeks.png');
+		$('title').append($deadImg);
+
+		$('#speak').remove();
 	}
 }
 
@@ -145,14 +186,6 @@ $('#play').on('click', game.play);
 
 
 // Initial Pet Moving
-$('img').velocity({
-	rotateX: 30,
-	translateX: 60,
-}, {
-	duration: 5000,
-	loop: 3,
-	deplay: 10
-})
 
 
 
