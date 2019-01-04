@@ -91,7 +91,28 @@ const game = {
 	 	this.render();
 	 	this.aging();
 	},
+	checkHealth(){
+		if(this.hunger < 0){
+			this.hunger = 0;
+		}
+		if(this.boredom < 0){
+			this.boredom = 0;
+		}
+		if(this.sleepiness < 0){
+			this.sleepines = 0;
+		}
+		if(this.hunger >= 10){
+			this.dead();
+		}
+		if(this.boredom >= 10){
+			this.dead();
+		}
+		if(this.sleepiness >= 10){
+			this.dead();
+		}
+	},
 	render(){ 
+		this.checkHealth();
 		$('#hungry').html(`Hunger: ${this.hunger} out of 10`);
 		$('#bored').html(`Boredom: ${this.boredom} out of 10`);
 		$('#sleepy').html(`Sleepiness: ${this.sleepiness} out of 10`);
@@ -116,9 +137,6 @@ const game = {
 		if(game.hunger < 7){
 			$('#speak').html(`mr. ${game.name} is hunnggrrryyy`);
 		}
-		if(game.hunger > 10){
-			game.dead();
-		}
 	},
 	light(){
 		//let light = false;
@@ -134,25 +152,27 @@ const game = {
 		}	
 
 		// pet sleepiness levels
-		if(game.sleepiness === 0){
+		if(game.sleepiness <= 0){
+			game.sleepiness = 0;
+		}
+		if(game.sleepiness <= 3){
 			$('#speak').html(`mr. ${game.name} is not tired. Let's play and teach Jerry how to swing!`);
 			$('body').css('background-color','lightyellow');
 		}
-		if(game.sleepiness > 0 && game.sleepiness < 7){
+		if(game.sleepiness > 3 && game.sleepiness < 7){
 			$('#speak').html("Hi! I'm mr. " + game.name + " look at me!");
 		}
-		if(game.sleepiness < 8){
+		if(game.sleepiness <= 8){
 			$('#speak').html(`mr. ${game.name} IS TIRED!! Please turn off the light Jerry`);
 			$('body').css('background-color','rgb(169,169,169)');
-		}
-		if(game.sleepiness > 10){
-			game.dead();
 		}
 	},
 	play(){
 		game.boredom -= 1;
 		game.render();
-		
+		if(game.boredom <= 0){
+			game.boredom === 0;
+		}
 		const $playImg = $('<img id="play-pet"></img>');
 		$('#play-pet').attr('src', 'https://m4gnation.files.wordpress.com/2018/04/mrmeeseeks.png');
 		$('#pet-img').append($playImg);
@@ -168,9 +188,6 @@ const game = {
 			easing: "linear",
 			deplay: 10
 		})
-		if(game.boredom > 10){
-			game.dead();
-		}
 	},
 	aging(){
 		// pet shrinks
@@ -191,7 +208,7 @@ const game = {
 				this.boredom += 0.25;
 				this.age += 2;
 				this.render();
-			}, 10000);
+			}, 7000);
 		if(this.hunger >= 10 || this.sleepiness >= 10 || this.boredom >= 10) {
 				this.dead();
 			}
